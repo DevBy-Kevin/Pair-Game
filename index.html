@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pair Game</title>
+    <link rel="stylesheet" href="style.css">
+    <script type="module" src="main.js"></script>
+</head>
+
+<body>
+    <div 
+        data-boxNumber=""
+        data-endpoint="https://pixabay.com/api/?key=" 
+        data-template="#box" 
+        data-target=".container"
+        class="container">
+    </div>
+
+    <template id="box">
+        <div class="box" id="">
+            <div class="click-text">Cliquez-moi 👋</div>
+            <img class="img display" loading="lazy">
+        </div>
+    </template>
+</body>
+
+</html>

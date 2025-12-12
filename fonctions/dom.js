@@ -13,7 +13,7 @@ export function createElement(tagName, attributes = {}) {
  * @returns {DocumentFragment}
  */
 export function cloneTemplate(id) {
-    return document.getElementById(id).content.cloneNode(true)
+    return document.getElementById(id).content.cloneNode(true);
 }
 
 /**
@@ -22,6 +22,6 @@ export function cloneTemplate(id) {
  */
 export function defineAttribut(tagName, attributes = {}) {
     for (const [attribut, value] of Object.entries(attributes)) {
-        tagName.setAttribute(attribut, value)
+        tagName.setAttribute(attribut, value);
     }
 }

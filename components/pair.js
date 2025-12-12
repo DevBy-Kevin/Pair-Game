@@ -11,6 +11,8 @@ export class Pair {
     #imgType
     /**@type {HTMLElement} */
     #container
+    /**@type {Array} */
+    #boxes = []
     /**@type {String} */
     #endpoint
     // /**@type {HTMLTemplateElement} */
@@ -42,8 +44,10 @@ export class Pair {
             images = images.hits
             for (const img of images) {
                 const box = new EachBox(img)
-                box.elements.forEach(element => elt.append(element))
+                box.elements.forEach(box => this.#boxes.push(box))
+                // box.elements.forEach(element => elt.append(element))
             }
+            this.#randomPosition(this.#boxes, elt)
         } catch (error) {
             console.log(error)
             /**@type {HTMLDivElement} */
@@ -53,6 +57,20 @@ export class Pair {
             message.innerText = 'Chargement Impossible, Vérifier votre connexion et ressayer';
             elt.append(message)
         }
+    }
+
+    /**
+     * @param {Array} boxes 
+     * @param {HTMLElement} container 
+     */
+    #randomPosition(boxes, container) {
+        for (let i = boxes.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [boxes[i], boxes[j]] = [boxes[j], boxes[i]];
+        }
+
+        // Réinsertion dans le DOM dans le nouvel ordre
+        boxes.forEach(el => container.appendChild(el));
     }
 
 }
@@ -66,7 +84,11 @@ export class EachBox {
     /**@type {boolean} */
     static isLocked = false;
     /**@type {number} */
-    static globalCounter = 0
+    // compteur pour générer des id uniques à la création des boxes
+    static creationCounter = 0
+    /**@type {number} */
+    // compteur séparé pour ordonner les paires trouvées
+    static pairOrderCounter = 0
 
     /**@type {HTMLCollection} */
     #elements = []
@@ -81,15 +103,15 @@ export class EachBox {
      */
     constructor(img) {
         for (let i = 0; i < 2; i++) {
-            EachBox.globalCounter++
+            EachBox.creationCounter++
             const box = cloneTemplate('box').firstElementChild
             defineAttribut(box, {
                 'data-id': img.id,
-                'id': `box-${EachBox.globalCounter}`
+                'id': `box-${EachBox.creationCounter}`
             })
             const image = box.querySelector('img')
             defineAttribut(image, {
-                'src': img.previewURL, //webformatURL largeImageURL
+                'src': img.previewURL, //webformatURL largeImageURL previewURL
                 'alt': img.tags
             })
             this.#elements.push(box)
@@ -127,7 +149,7 @@ export class EachBox {
 
         //Savoir si la carte précédente est visible avec le lastElemendId (static proprety) commun à tous
         this.#isVisible = container.querySelector(`#${EachBox.lastElementId}`)?.classList.contains('visible');
-        
+
         if ((EachBox.lastElementDataId === box.dataset.id) && (EachBox.lastElementId !== box.getAttribute('id')) && (this.#isVisible)) {
             this.#isPair(container)
         } else {
@@ -162,11 +184,13 @@ export class EachBox {
 
     #isPair(currentContainer) {
         console.log('ça marche !!!!!!')
-        currentContainer.querySelectorAll(`[data-id="${EachBox.lastElementDataId}"]`).forEach(box => {
-            box.removeEventListener('click', this.#clickListener)
-            box.classList.add('success')
+        currentContainer.querySelectorAll(`[data-id="${EachBox.lastElementDataId}"]`).forEach(matchedBox => {
+            matchedBox.removeEventListener('click', this.#clickListener);
+            matchedBox.classList.add('success');
+
+            // incrémenter le compteur de paires trouvées et appliquer l'ordre
+            EachBox.pairOrderCounter++;
+            matchedBox.style.order = `-${EachBox.pairOrderCounter}`;
         })
-        EachBox.globalCounter++
-        currentContainer.querySelectorAll('.success').forEach(box => box.style.order = `-${EachBox.globalCounter}`);
     }
 }

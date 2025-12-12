@@ -5,7 +5,7 @@ import { cloneTemplate } from "./fonctions/dom.js"
 // const boxNumber = prompt('Combien de case en voulez vous ?')
 // const imgType = prompt("Quel type d'images aimeriez-vous ?")
 const boxNumber = 4
-const imgType = "book"
+const imgType = "click"
 
 /**@type {HTMLElement} */
 const container = document.querySelector('.container')

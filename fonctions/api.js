@@ -10,7 +10,7 @@ export async function fetchJSON (url, options = {}) {
         options.body = JSON.stringify(options.json)
         headers['Content-Type'] = 'application/json'
     }
-    const r = await fetch(url, {...options, headers})
+    const r = await fetch(url, {...options, headers});
     if(!r.ok) {
         throw new Error(`Erreur serveur : ${r.status}`, {cause: r});
     }

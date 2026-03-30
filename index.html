@@ -10,12 +10,78 @@
 </head>
 
 <body>
-    <div 
-        data-boxNumber=""
-        data-endpoint="https://pixabay.com/api/?key=" 
-        data-template="#box" 
-        data-target=".container"
-        class="container">
+
+    <h1 class="game_title">MEMORY GAME</h1>
+
+    <div class="body">
+        <div class="screen screen_welcome" id="screen_welcome">
+            <div>
+                <h3 class="subtitle">Select a theme</h3>
+                <div class="themes">
+                    <button class="theme button" data-theme="nature">Nature</button>
+                    <button class="theme button" data-theme="animals">Animals</button>
+                    <button class="theme button" data-theme="cars">Cars</button>
+                    <button class="theme button" data-theme="cities">Cities</button>
+                </div>
+            </div>
+            <div>
+                <h3 class="subtitle">Select Difficulty</h3>
+                <div class="difficulties">
+                    <button class="difficulty button" data-difficulty="12" data-time ="120">Easy (36 boxes)</button>
+                    <button class="difficulty button" data-difficulty="16" data-time ="130">Medium (49 boxes)</button>
+                    <button class="difficulty button" data-difficulty="18" data-time ="140">Hard (64 boxes)</button>
+                    <!-- <button class="difficulty button" data-perso="hard">Personnalize</button> A FAIRE APRES-->
+                </div>
+            </div>
+            <div>
+                <button class="button second_button" id="start_button">Start Game</button>
+            </div>
+        </div>
+
+        <div class="screen screen_game" id="screen_game"> <!-- screen_hide -->
+            <div class="stats">
+                <div class="stat">Strokes : <span class="strokes">00</span></div>
+                <div class="stat">Time : <span class="time">00:00</span></div>
+                <div class="stat menu">⚙ MENU</div>
+            </div>
+            <div 
+                data-boxNumber=""
+                data-endpoint="https://pixabay.com/api/?key=" 
+                data-template="#box" 
+                data-target=".container"
+                class="container">
+            </div>
+        </div>
+
+        <div class="screen screen_victory" id="screen_victory">
+            <h2 class="subtitle">Congratulations! You won! 🎉🎉🎉</h2>
+            <div class="statistics">
+                <h3 class="statistics_title">statistics</h3>
+                <div class="stat_table">
+                    <div class="statistic colorful">Total Time <span class="right time">00:00</span></div>
+                    <div class="statistic">Moves Played <span class="strokes right">00</span></div>
+                    <div class="statistic colorful">Precision <span class="right" id="precision">00%</span></div>
+                </div>
+            </div>
+            <div class="win_buttons">
+            <button class="button second_button" id="restart_button">Play Again</button>
+            </div>
+        </div>
+
+        <div class="screen screen_gameover" id="screen_gameover">
+            <h2 class="subtitle">Game Over! Try Again</h2>
+            <div class="statistics">
+                <h3 class="statistics_title">statistics</h3>
+                <div class="stat_table">
+                    <div class="statistic colorful">Boxes left <span class="right boxes_left">00:00</span></div>
+                    <div class="statistic">Moves Played <span class="strokes right">00</span></div>
+                    <div class="statistic colorful">Precision <span class="right" id="precision">00%</span></div>
+                </div>
+            </div>
+            <div class="win_buttons">
+            <button class="button second_button" id="restart_button">Play Again</button>
+            </div>
+        </div>
     </div>
 
     <template id="box">

@@ -1,4 +1,4 @@
-"# 🎮 Pair Game - Memory Match
+# 🎮 Pair Game - Memory Match
 
 Un jeu de mémoire interactif et dynamique construit avec **JavaScript vanilla**. Appariez les paires d'images avant que le temps ne s'écoule !
 
